@@ -9,10 +9,12 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
+" add any plugins for git product fugitive like gitlab or bitbucket
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'folke/lsp-colors.nvim'
@@ -28,6 +30,7 @@ Plug 'mhartington/oceanic-next'
 Plug 'connorholyday/vim-snazzy'
 Plug 'wojciechkepka/vim-github-dark'
 Plug 'folke/tokyonight.nvim'
+Plug 'rose-pine/neovim'
 
 " Initialize plugin system
 call plug#end()
@@ -36,7 +39,12 @@ call plug#end()
 set directory^=$HOME/.vim/tmp//
 
 " Set nvim python virtual env path
-let g:python3_host_prog = '/Users/moja/.virtualenvs/nvim/bin/python3.9'
+" uncomment out if nvim specific virtual env is added
+" let g:python3_host_prog = '/Users/moja/.virtualenvs/nvim/bin/python3.9'
+
+" Fugitive add-ons
+" uncomment if specific git providers are used
+" let g:fugitive_gitlan_domains = ['<URL of Gitlab domain>']
 
 " Enable mouse scrolling - otherwise tmux scrolls past
 set mouse=a
@@ -140,6 +148,9 @@ set smartindent
 """""""""""""""""""""""
 let mapleader = " "
 
+" Fugitive remaps
+nnoremap <ledaer>gh :GBrowser<CR>
+
 " moving between splits
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -181,6 +192,7 @@ let g:completion_matching_strategy_list=['exact', 'substring', 'fuzzy']
 let g:completion_trigger_on_delete = 1  " allows completion after you delete characters
 
 " Python Language Server
+" The whole LSP config will need to be revisted and re-setup
 lua << EOF
 require'lspconfig'.pyls_ms.setup{
     on_attach=require'completion'.on_attach;
