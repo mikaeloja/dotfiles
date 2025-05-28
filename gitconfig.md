@@ -10,3 +10,4 @@ git config --global alias.last log -1 HEAD --stat
 git config --global alias.ba = branch -a
 git config --global core.editor nvim
 ```
+
